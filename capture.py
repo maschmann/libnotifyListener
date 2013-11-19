@@ -15,20 +15,18 @@
 #mainloop = glib.MainLoop()
 #mainloop.run()
 
-#!/usr/bin/env python
-import dbus, gobject, subprocess
+import dbus, gobject, subprocess, glib
 from dbus.mainloop.glib import DBusGMainLoop
 
-def send_notifier():
-    subprocess.check_call(['sudo /usr/bin/ledcontroller', 'red'])
-    subprocess.check_call(['sudo /usr/bin/ledcontroller', 'yellow'])
-    subprocess.check_call(['sudo /usr/bin/ledcontroller', 'off'])
+def send_notifier(dbus, message):
+    if message.get_member() == "Notify":
+        subprocess.check_call(['/home/maschmann/git/libnotifyCapture/test'])
 
-dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+DBusGMainLoop(set_as_default=True)
 
 bus = dbus.SessionBus()
-bus.add_signal_receiver(send_notifier, dbus_interface="org.freedesktop.Notifications")
-#bus.add_message_filter(notifications)
+bus.add_match_string_non_blocking("interface='org.freedesktop.Notifications'")
+bus.add_message_filter(send_notifier)
 
-loop = gobject.MainLoop()
-loop.run()
+mainloop = glib.MainLoop()
+mainloop.run()

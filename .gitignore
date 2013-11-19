@@ -1,1 +1,5 @@
 .idea
+dbus
+subprocess
+gobject
+glib
