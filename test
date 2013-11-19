@@ -1,0 +1,13 @@
+#!/bin/bash
+sudo /usr/bin/ledcontroller red
+sleep 1;
+sudo /usr/bin/ledcontroller off
+sleep 1;
+sudo /usr/bin/ledcontroller red
+sleep 1;
+sudo /usr/bin/ledcontroller off
+sleep 1;
+sudo /usr/bin/ledcontroller red
+sleep 1;
+sudo /usr/bin/ledcontroller off
+sleep 1;
